@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Directory</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+  <script type="text/x-template" id="grid">
+    <table>
+      <thead>
+      <tr>
+        <th v-for="key in columns"
+            @click="sortBy(key)"
+            :class="{ active: sortKey == key }">
+          {{ key | capitalize }}
+          <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+          </span>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="entry in filteredData">
+        <td v-for="key in columns">
+          {{entry[key]}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </script>
+
+  <div id="app">
+    <form id="search">
+      Search <input name="query" v-model="searchQuery">
+    </form>
+    <grid
+            :data="gridData"
+            :columns="gridColumns"
+            :filter-key="searchQuery">
+    </grid>
+  </div>
+  </body>
+</html>
